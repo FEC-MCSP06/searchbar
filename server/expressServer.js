@@ -12,14 +12,13 @@ app.use(express.json());
 // get 
 app.get('/api/searchbar', async(req, res) => {
     try {
-        const id = parseInt(req.body.id);
-        console.log(id)
-        if(id){
-            const videoKey = await pool.query(`SELECT * FROM videos WHERE id = ${id}`);
-            res.status(200).json(videoKey.rows)
+        const videoKey = parseInt(req.body.videoKey);
+        if(videoKey){
+            const query = await pool.query(`SELECT * FROM videos WHERE videoKey = ${videoKey}`);
+            res.status(200).json(query.rows)
         }else{
-            const videoKeys = await pool.query('SELECT * FROM videos');
-            res.status(200).json(videoKeys.rows)
+            const query = await pool.query('SELECT * FROM videos');
+            res.status(200).json(query.rows)
         }
     } catch (err) {
         console.log(err);
@@ -27,11 +26,52 @@ app.get('/api/searchbar', async(req, res) => {
     }
 })
 
-// app.post
+// post
+app.post('/api/searchbar', async(req, res) => {
+    try {
+        const videoKey = parseInt(req.body.videoKey)
+        if(videoKey){
+            const addKey = await pool.query(`INSERT INTO videos (videoKey) VALUES (${videoKey})`)
+            res.status(201).end('Video Key Added to Database.')
+        }else{
+            res.status(406).end('No Key Given')
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).end(err)
+    }
+})
 
-// app.put
+// put
+app.put('/api/searchbar', async(req, res) => {
+    try {
+        const {videoKey, id} = req.body
+        if(videoKey && id){
+            const changeKey = await pool.query(`UPDATE videos SET videoKey = ${videoKey} WHERE id = ${id}`)
+            res.status(200).end('Video Key Updated')
+        }else{
+            res.status(406).end('No Key/ID Given')
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).end(err)
+    }
+})
 
-//app.delete
+//delete
+app.delete('/api/searchbar', async(req, res) => {
+    try {
+        const id = parseInt(req.body.id)
+        if(id){
+            const deleteRecord = pool.query(`DELETE FROM videos WHERE id = ${id}`)
+        }else{
+            res.status(406).end('No Key Given')
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).end(err)
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Now Listening on Port: ${PORT}`)
