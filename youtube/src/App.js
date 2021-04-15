@@ -20,6 +20,9 @@ class App extends Component {
     const responseJson = await response.json();
     if(responseJson.length !== 0){
       e.target[0].value = `Your videoKey is: ${responseJson[0].videokey}`
+      this.setState({
+        videoKey : responseJson[0].videokey
+      })
     }else{
       e.target[0].value = `No Results Found.`
     }

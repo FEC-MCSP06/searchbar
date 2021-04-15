@@ -1,5 +1,5 @@
 import Searchbutton from './Searchbutton'
-const { React, Component, Fragment } = require('react')
+const { React, Component } = require('react')
 
 class Searchbar extends Component{
     render(){
