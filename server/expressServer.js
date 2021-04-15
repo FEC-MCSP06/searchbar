@@ -12,13 +12,23 @@ app.use(express.json());
 // get 
 app.get('/api/searchbar', async(req, res) => {
     try {
-        const videoKey = parseInt(req.body.videoKey);
-        if(videoKey){
-            const query = await pool.query(`SELECT * FROM videos WHERE videoKey = ${videoKey}`);
+        const query = await pool.query('SELECT * FROM videos');
+        res.status(200).json(query.rows)
+    } catch (err) {
+        console.log(err);
+        res.status(500).end(err)
+    }
+})
+
+app.get('/api/searchbar/:id', async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        if(id){
+            const query = await pool.query(`SELECT * FROM videos WHERE id = ${id}`);
+            console.log(query.rows)
             res.status(200).json(query.rows)
         }else{
-            const query = await pool.query('SELECT * FROM videos');
-            res.status(200).json(query.rows)
+            res.status(406).end('No Results')
         }
     } catch (err) {
         console.log(err);
