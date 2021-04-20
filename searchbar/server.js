@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path')
 const PORT = 3202;
 
 const { Pool } = require('pg');
@@ -16,6 +17,12 @@ const pool = new Pool({
 app.use(cors());
 app.use(morgan('combined'));
 app.use(express.json());
+
+app.use(express.static(path.resolve(__dirname,'./client/build')))
+
+app.get('/searchbar', (req, res) => {
+    res.sendFile(path.join(`${__dirname}/client/build/index.html`))
+});
 
 // get 
 app.get('/api/searchbar', async(req, res) => {
