@@ -30,7 +30,7 @@ class App extends Component {
 
   render(){
     return (
-      <div className="App">
+      <div className="topbar">
         <SearchbarInput handleSearchButton={this.handleSearchButton}/>
       </div>
     );

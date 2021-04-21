@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+#topbar{
+  background: #181818;
+}
+
 #searchbarInput{
   height: 2rem;
   width: 30vw;
