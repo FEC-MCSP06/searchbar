@@ -1,11 +1,11 @@
 import Searchbutton from './Searchbutton'
 const { React, Component } = require('react')
 
-class Searchbar extends Component{
+class SearchbarInput extends Component{
     render(){
         return(
             <form onSubmit={(event) => this.props.handleSearchButton(event)}>
-                <input id="searchbar" type="text" placeholder="Search"/>
+                <input id="searchbarInput" type="text" placeholder="Search"/>
                 <Searchbutton />
             </form>
             
@@ -13,4 +13,4 @@ class Searchbar extends Component{
     }
 }
 
-export default Searchbar
+export default SearchbarInput

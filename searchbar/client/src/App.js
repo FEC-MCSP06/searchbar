@@ -1,5 +1,5 @@
 import './App.css';
-import Searchbar from './Components/Searchbar'
+import SearchbarInput from './Components/SearchbarInput'
 const { React, Component } = require('react')
 
 class App extends Component {
@@ -31,7 +31,7 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <Searchbar handleSearchButton={this.handleSearchButton}/>
+        <SearchbarInput handleSearchButton={this.handleSearchButton}/>
       </div>
     );
   }
