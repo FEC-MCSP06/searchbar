@@ -19,10 +19,15 @@ class App extends Component {
     }
     const responseJson = await response.json();
     if(responseJson.length !== 0){
-      e.target[0].value = `Your videoKey is: ${responseJson[0].videokey}`
       this.setState({
         videoKey : responseJson[0].videokey
       })
+      let changeVideoKey = new CustomEvent('changeVideoKey', {
+        detail:{
+          videoKey: this.state.videoKey
+        }
+      })
+      dispatchEvent(changeVideoKey);
     }else{
       e.target[0].value = `No Results Found.`
     }
@@ -31,7 +36,11 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <SearchbarInput handleSearchButton={this.handleSearchButton}/>
+        <div id="topbar">
+          <div id="hamburger"><i class="fa fa-bars"></i></div>
+          <img id="youtubeIcon" src="http://localhost:3202/static/images/youtubeIcon.png"></img>
+          <SearchbarInput handleSearchButton={this.handleSearchButton}/>
+        </div>
       </div>
     );
   }
